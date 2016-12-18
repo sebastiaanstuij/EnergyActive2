@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EnergyUsageOverviewComponent implements OnInit {
 
+  text = 'hello1';
   constructor() { }
 
   ngOnInit() {
