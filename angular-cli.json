@@ -19,6 +19,7 @@
       "mobile": false,
       "styles": [
         "styles.scss"
+        // ,"./assets/custom-theme.scss"
       ],
       "scripts": [
       ],
