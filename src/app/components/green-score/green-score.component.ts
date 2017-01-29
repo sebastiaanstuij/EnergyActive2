@@ -6,8 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./green-score.component.scss']
 })
 export class GreenScoreComponent implements OnInit {
-  text = 'test2';
-  constructor() { }
+  text: String = 'green-score';
+
+  constructor() {
+
+  }
 
   ngOnInit() {
   }

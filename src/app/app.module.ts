@@ -6,20 +6,23 @@ import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './components/core/app.component';
-import { EnergyUsageOverviewComponent } from './components/energy-usage-overview/energy-usage-overview.component';
+import { HomeComponent } from './components/home/home.component';
+import { EnergyOverviewComponent } from './components/energy-overview/energy-overview.component';
 import { GreenScoreComponent } from './components/green-score/green-score.component';
-
 
 import { DataService } from './services/data-service/data.service';
 import { MapperService } from './services/mapper-service/mapper.service';
 
 import 'hammerjs';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EnergyUsageOverviewComponent,
-    GreenScoreComponent
+    EnergyOverviewComponent,
+    GreenScoreComponent,
+    HomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

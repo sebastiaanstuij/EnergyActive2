@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { EnergyUsageOverviewComponent } from './energy-usage-overview.component';
+import { EnergyOverviewComponent } from './energy-overview.component';
 
 describe('EnergyUsageOverviewComponent', () => {
-  let component: EnergyUsageOverviewComponent;
-  let fixture: ComponentFixture<EnergyUsageOverviewComponent>;
+  let component: EnergyOverviewComponent;
+  let fixture: ComponentFixture<EnergyOverviewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EnergyUsageOverviewComponent ]
+      declarations: [ EnergyOverviewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EnergyUsageOverviewComponent);
+    fixture = TestBed.createComponent(EnergyOverviewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
