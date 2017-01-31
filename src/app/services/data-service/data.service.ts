@@ -5,4 +5,5 @@ export class DataService {
 
   constructor() { }
 
+  getData(): void {} // stub
 }

@@ -5,4 +5,5 @@ export class MapperService {
 
   constructor() { }
 
+  mapData(): void {} // stub
 }

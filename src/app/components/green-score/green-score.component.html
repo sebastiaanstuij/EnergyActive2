@@ -1,4 +1,11 @@
 <md-card>
-    <p>{{text}}</p>
+    <div id="graphContainer">
+        <svg id="greenScoreVisualisation"></svg>
+    </div>
+    <md-radio-group [(ngModel)]="dataSource">
+        <md-radio-button value="live">Live data</md-radio-button>
+        <md-radio-button value="mock">Mock data</md-radio-button>
+    </md-radio-group>
 </md-card>
 
+<p>{{dataSource}}</p>
