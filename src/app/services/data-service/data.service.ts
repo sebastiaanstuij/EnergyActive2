@@ -1,9 +1,22 @@
 import { Injectable } from '@angular/core';
 
+
+export interface GreenScoreDataResult {
+    greenScore: number;
+}
+
 @Injectable()
 export class DataService {
 
-  constructor() { }
+  testData = {
+    greenScore: 3.4
+  };
 
-  getData(): void {} // stub
+  getLiveGreenScore(): Promise<any> {
+     return new Promise((resolve, reject) => resolve(this.testData));
+  } // stub
+
+
+
 }
+

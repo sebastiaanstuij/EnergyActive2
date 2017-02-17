@@ -3,7 +3,7 @@
     "baseUrl": "",
     "compilerOptions": {
       "types": [
-        "hammerjs"
+        "hammerjs", "d3"
       ]},
     "declaration": false,
     "emitDecoratorMetadata": true,

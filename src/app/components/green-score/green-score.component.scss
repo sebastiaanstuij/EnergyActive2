@@ -1,0 +1,23 @@
+/*  Graph layout styling  */
+// * /deep/ {
+//     #greenScoreVisualization {
+//         display: block;
+//         margin: auto;
+//         width: 50%;
+//     }
+// }
+
+/* graph specific styling */
+* /deep/ {
+    .chart-color1 {
+        fill: #9E9E9E;//#bdbdbd // md-grey
+    }
+    .chart-color2 {
+        fill: #FF5722; //#FF9232 // md-deep-orange
+    }
+
+    .chart-color3{
+        fill: #00E676; //#3BC443 // md-green
+    }
+}
+
