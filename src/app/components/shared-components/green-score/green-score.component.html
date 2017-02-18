@@ -1,0 +1,22 @@
+<md-card>
+    <md-card-header>
+        <md-card-title-group>
+            <md-card-title>Greenscore</md-card-title>
+            <md-card-subtitle>Today</md-card-subtitle>
+        </md-card-title-group>
+    </md-card-header>
+
+    <md-card-content>
+        <div class="green-score-visualization" #greenScoreVisualization></div>
+    </md-card-content>
+
+    <md-card-actions>
+        <button md-button>SHARE</button>
+  </md-card-actions>
+</md-card>
+
+<md-radio-group [(ngModel)]="dataSource">
+    <md-radio-button value="live">Live data</md-radio-button>
+    <md-radio-button value="mock">Mock data</md-radio-button>
+</md-radio-group>
+<p>{{dataSource}}</p>

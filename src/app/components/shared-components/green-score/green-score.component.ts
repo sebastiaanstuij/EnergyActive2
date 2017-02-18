@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { DataService } from '../../services/data-service/data.service';
+import { DataService } from '../../../services/data-service/data.service';
 import { Constants } from './constants';
 import { UtilService } from './utils';
 import { Needle } from './needle';

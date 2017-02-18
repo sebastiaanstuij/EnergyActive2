@@ -1,3 +1,16 @@
-<md-card>
-    <p>{{text}}</p>
-</md-card>
+<div class="flex-container" 
+  fxLayout="row"
+  fxLayout.xs="column" 
+  fxLayoutWrap="wrap"
+  fxLayoutWrap.xs="nowrap"
+  fxLayoutAlign ="space-around">
+
+  <div fxFlex="30%">  
+    <app-green-score></app-green-score>
+  </div>  
+
+  <div fxFlex="50%">
+    <app-energy-overview></app-energy-overview>
+  </div>
+
+</div>

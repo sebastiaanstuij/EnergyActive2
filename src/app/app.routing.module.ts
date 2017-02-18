@@ -2,15 +2,17 @@ import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
-import { EnergyOverviewComponent } from './components/energy-overview/energy-overview.component';
-import { GreenScoreComponent } from './components/green-score/green-score.component';
+import { MyPeaComponent } from './components/my-pea/my-pea.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { SettingsComponent } from './components/settings/settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
-  { path: 'energy-usage', component: EnergyOverviewComponent},
-  { path: 'green-score', component: GreenScoreComponent},
+  { path: 'my-pea', component: MyPeaComponent},
+  { path: 'profile', component: ProfileComponent},
+  { path: 'settings', component: SettingsComponent},
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'
