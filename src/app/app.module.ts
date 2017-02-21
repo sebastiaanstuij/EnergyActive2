@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app.routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpModule, XHRBackend } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -23,10 +23,21 @@ import { GreenScoreComponent } from './components/shared-components/green-score/
 import { DataService } from './services/data-service/data.service';
 import { MapperService } from './services/mapper-service/mapper.service';
 
-// exra imports
+// import mock backend
+import { MockXHRBackend } from './services/data-service/mock.data.service';
+
+// exra imports for touch/gesture support
 import 'hammerjs';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpModule,
+    MaterialModule.forRoot(),
+    FlexLayoutModule
+  ],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -37,17 +48,10 @@ import 'hammerjs';
     EnergyOverviewComponent,
     GreenScoreComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpModule,
-    MaterialModule.forRoot(),
-    FlexLayoutModule
-  ],
   providers: [
     DataService,
-    MapperService
+    MapperService,
+    { provide: XHRBackend, useClass: MockXHRBackend }
   ],
   bootstrap: [AppComponent]
 })

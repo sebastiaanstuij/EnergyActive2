@@ -1,23 +1,22 @@
-<md-card class="example-card">
-  <md-card-header>
-    <!--<div md-card-avatar class="example-header-image"></div>-->
-    <md-card-title-group>
-        <md-card-title>Energy Overview</md-card-title>
-        <md-card-subtitle>Today</md-card-subtitle>
-    </md-card-title-group>
-  </md-card-header>
-  
-  <img md-card-image src="assets/images/energy-overview-mock-image.png">
+<md-card>
+    <md-card-header>
+        <md-card-title-group>
+            <md-card-title>Energy Overview</md-card-title>
+            <md-card-subtitle>Today</md-card-subtitle>
+        </md-card-title-group>
+    </md-card-header>
 
-  <md-card-content>
-    <p>
-      This is an overview of the energy usage and production of green energy today
-    </p>
-  </md-card-content>
+    <md-card-content>
+      <div class="energy-overview-visualization" #energyOverviewVisualization></div>
+    </md-card-content>
 
-  <md-card-actions>
-    <button md-button>SHARE</button>
+    <md-card-actions>
+        <button md-button>SHARE</button>
   </md-card-actions>
 </md-card>
 
-<!--<div id="rectangle"></div>-->
+<md-radio-group [(ngModel)]="dataSource">
+    <md-radio-button value="live">Live data</md-radio-button>
+    <md-radio-button value="mock">Mock data</md-radio-button>
+</md-radio-group>
+<p>{{dataSource}}</p>

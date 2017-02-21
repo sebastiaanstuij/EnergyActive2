@@ -7,18 +7,17 @@ import * as d3 from 'd3';
 
 @Component({
   selector: 'app-green-score',
-  providers: [Constants, UtilService, DataService],
+  providers: [Constants, UtilService], // wel of geen DataService
   templateUrl: './green-score.component.html',
   styleUrls: ['./green-score.component.scss'],
 })
 export class GreenScoreComponent implements OnInit, AfterViewInit {
   container;
   visualization;
-  // text: String = 'green-score';
-  dataSource: String = 'mock';
   myTimer;
   needle: Needle;
   ticks;
+  greenscore;
   // tickData;
 
   @ViewChild('greenScoreVisualization')
@@ -40,7 +39,7 @@ export class GreenScoreComponent implements OnInit, AfterViewInit {
     let element = this.visualizationContainer.nativeElement;
     this.container = d3.select(element).append('svg')
       .attr('preserveAspectRatio', 'xMidYMid meet')
-      .attr('viewBox', '0 0 300 300');
+      .attr('viewBox', '0 0 300 300'); // TODO: viewbox still necessary?
 
     this.visualization = this.container.append('g').attr('transform', 'translate(' +
       (this.C.WIDTH + this.C.MARGINS.left) / 2 + ', ' + (this.C.HEIGHT + this.C.MARGINS.top) / 2 + ')');
@@ -85,34 +84,17 @@ export class GreenScoreComponent implements OnInit, AfterViewInit {
 
     this.needle = new Needle(90, 10);
     this.needle.drawOn(this.visualization, 0);
-    this.needle.animateOn(this.visualization, 0.33);
-
+    this.loadDataAndDrawGraph();
   }
 
   loadDataAndDrawGraph(): void {
-    if (this.dataSource === 'live') {
-      this.myTimer = setInterval(this.loadDataAndDrawGraph, this.C.interval);
-      this.dataService.getLiveGreenScore().then(function (loadedData) {
-        let greenScore = loadedData.greenScore;
-        let percent = (greenScore * 20) / 100;
-        this.visualisation.style('opacity', 1);
-        this.needle.animateOn(this.chart, percent);
-      }, function (errorMessage) {
-        console.log(errorMessage);
+    this.dataService.getLiveGreenScore()
+      .subscribe(greenscore => {
+        this.greenscore = greenscore;
+        let percent = (greenscore * 20) / 100;
+        // this.visualization.style('opacity', 1);
+        this.needle.animateOn(this.visualization, percent);
       });
-    } else {
-      clearInterval(this.myTimer);
-      this.visualization.style('opacity', 1);
-      let greenScore = Math.floor((Math.random() * 100) + 1);
-      let percent = greenScore / 100;
-      this.needle.animateOn(this.visualization, percent);
-    }
   }
-
-  // react to radio button events //observable van dataSource maken
-  // $scope.checkDataOrigin = function() {
-  //     visualisation.style("opacity", 0);
-  //     loadDataAndDrawGraph();
-  // };
 
 }
