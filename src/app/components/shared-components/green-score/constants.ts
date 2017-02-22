@@ -23,7 +23,7 @@ export class Constants {
   maxAngle = 90;
   minValue = 0;
   maxValue = 10;
-  labelFormat = d3.format(',g');
+  labelFormat = d3.format(',d');
   labelInset = 10;
   range = this.maxAngle - this.minAngle;
   r = 200 / 2;
