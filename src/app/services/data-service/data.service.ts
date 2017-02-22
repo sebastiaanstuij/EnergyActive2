@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import {Observable} from 'rxjs/Rx';
+import { Observable } from 'rxjs/Rx';
 
 import 'rxjs/add/operator/map';
 
@@ -13,8 +13,8 @@ export class DataService {
 
   constructor(private http: Http) {}
 
-  getLiveGreenScore() {
-    return Observable.interval(10000).mergeMap(
+  getLiveGreenScore(): Observable<any> {
+    return Observable.interval(30000).startWith(0).mergeMap(
       () => this.http.get('greenscore')
       .map(response => {
         return response.json().greenscore;

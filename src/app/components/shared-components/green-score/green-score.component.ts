@@ -1,8 +1,10 @@
-import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { DataService } from '../../../services/data-service/data.service';
 import { Constants } from './constants';
 import { UtilService } from './utils';
 import { Needle } from './needle';
+import { Observable } from 'rxjs/Rx';
+import { Subscription } from 'rxjs'; // ?
 import * as d3 from 'd3';
 
 @Component({
@@ -11,12 +13,13 @@ import * as d3 from 'd3';
   templateUrl: './green-score.component.html',
   styleUrls: ['./green-score.component.scss'],
 })
-export class GreenScoreComponent implements OnInit, AfterViewInit {
+export class GreenScoreComponent implements OnInit, AfterViewInit, OnDestroy {
   container;
   visualization;
   myTimer;
   needle: Needle;
   ticks;
+  mySubscription: Subscription;
   greenscore;
   // tickData;
 
@@ -45,6 +48,10 @@ export class GreenScoreComponent implements OnInit, AfterViewInit {
       (this.C.WIDTH + this.C.MARGINS.left) / 2 + ', ' + (this.C.HEIGHT + this.C.MARGINS.top) / 2 + ')');
 
     this.setup();
+  }
+
+  ngOnDestroy() {
+    this.mySubscription.unsubscribe(); // ?
   }
 
   setup(): void {
@@ -88,7 +95,7 @@ export class GreenScoreComponent implements OnInit, AfterViewInit {
   }
 
   loadDataAndDrawGraph(): void {
-    this.dataService.getLiveGreenScore()
+    this.mySubscription = this.dataService.getLiveGreenScore()
       .subscribe(greenscore => {
         this.greenscore = greenscore;
         let percent = (greenscore * 20) / 100;
