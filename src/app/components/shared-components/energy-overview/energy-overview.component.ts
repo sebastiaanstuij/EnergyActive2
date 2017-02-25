@@ -1,18 +1,22 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild} from '@angular/core';
 import { Constants } from './constants';
 import { DataService } from '../../../services/data-service/data.service';
+import { Subscription } from 'rxjs';
 import * as d3 from 'd3';
 
 @Component({
   selector: 'app-energy-overview',
-  providers: [Constants, DataService],
+  providers: [Constants],
   templateUrl: './energy-overview.component.html',
   styleUrls: ['./energy-overview.component.scss']
 })
 export class EnergyOverviewComponent implements OnInit, AfterViewInit {
   container;
   visualization;
-  myTimer;
+  // startDay = moment().subtract(2, 'days').format("YYYY-MM-DD");
+  // endDay = moment().format("YYYY-MM-DD");
+  dataSubscription: Subscription;
+  data;
 
   xScale;
   yScale;
@@ -29,13 +33,10 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
-    console.log('Running: ngOnInit');
-
+    // do D3 related things after view has been initialized => ngAfterViewInit ()
   }
 
   ngAfterViewInit() {
-    console.log('Running: ngAfterViewInitd');
-
     let element = this.visualizationContainer.nativeElement;
     this.container = d3.select(element).append('svg')
       .attr('preserveAspectRatio', 'xMidYMid meet')
@@ -44,15 +45,20 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
     this.setup();
   }
 
-  setup(): void {
-    console.log('Setting up Graph');
-
+  private setup(): void {
     // let minDate = data.wind_energy[0].date,
     //             maxDate = data.wind_energy[data.wind_energy.length - 1].date;
 
     //         xScale = d3.time.scale().domain([minDate, maxDate]).range([MARGINS.left, WIDTH - MARGINS.right]);
 
+    this.loadDataAndDrawGraph();
+  }
 
+  private loadDataAndDrawGraph(): void {
+    this.dataSubscription = this.dataService.getOverviewData()
+      .subscribe(data => {
+        this.data = data;
+      });
   }
 
 }

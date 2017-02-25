@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import { UtilService } from './utils';
-import {ReflectiveInjector} from '@angular/core';
+import { ReflectiveInjector } from '@angular/core';
 
 export class Needle {
 

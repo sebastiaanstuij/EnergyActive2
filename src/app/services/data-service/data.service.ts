@@ -22,6 +22,15 @@ export class DataService {
     );
   }
 
+  getOverviewData(): Observable<any> {
+    return Observable.interval(30000).startWith(0).mergeMap(
+      () => this.http.get('overviewData')
+      .map(response => {
+        return response.json().overviewData;
+      })
+    );
+  }
+
   // getGreenScore(): Promise<String[]> {
   //   return this.http.get('greenpea.com/api/greenscore')
   //       .toPromise()
