@@ -35,7 +35,7 @@ import 'hammerjs';
     AppRoutingModule,
     FormsModule,
     HttpModule,
-    MaterialModule.forRoot(),
+    MaterialModule,
     FlexLayoutModule
   ],
   declarations: [

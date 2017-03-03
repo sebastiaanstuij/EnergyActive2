@@ -51,6 +51,10 @@ export class GreenScoreComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.dataSubscription.unsubscribe();
+
+    if (this.visualization.empty && !this.visualization.empty()) {
+      this.visualization.selectAll('*').remove();
+    }
   }
 
   private setup(): void {
