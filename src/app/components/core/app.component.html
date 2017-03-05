@@ -1,11 +1,11 @@
 <md-sidenav-container fullscreen [class.m2app-dark]="isDarkTheme">
-  <md-sidenav color="primary" #sidenav mode="push" class="app-sidenav">
+  <md-sidenav id="app-sidenav" color="primary" #sidenav mode="push" class="app-sidenav">
       <md-nav-list (click)="sidenav.close()"> 
         <a md-list-item routerLink="/home" routerLinkActive="active-link"> 
           Home
         </a>
-        <a md-list-item routerLink="/my-pea" routerLinkActive="active-link"> 
-          My Pea
+        <a md-list-item routerLink="/greenpea" routerLinkActive="active-link"> 
+          Greenpea
         </a>
         <md-divider></md-divider>
         <a md-list-item routerLink="/profile" routerLinkActive="active-link"> 
@@ -17,7 +17,7 @@
       </md-nav-list>
   </md-sidenav>
   
-  <md-toolbar color="primary">
+  <md-toolbar id="app-toolbar" color="primary">
     <button class="app-icon-button" (click)="sidenav.toggle()">
       <i class="material-icons app-toolbar-menu">menu</i>
     </button>

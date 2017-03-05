@@ -10,7 +10,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // import page components
 import { AppComponent } from './components/core/app.component';
 import { HomeComponent } from './components/home/home.component';
-import { MyPeaComponent } from './components/my-pea/my-pea.component';
+import { GreenpeaComponent } from './components/greenpea/greenpea.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -41,7 +41,7 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     HomeComponent,
-    MyPeaComponent,
+    GreenpeaComponent,
     ProfileComponent,
     PageNotFoundComponent,
     SettingsComponent,
