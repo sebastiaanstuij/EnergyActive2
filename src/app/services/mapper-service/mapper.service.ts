@@ -66,7 +66,7 @@ export class MapperService {
   }
 }
 
- class MappedData {
+export class MappedData {
     wind_energy: any;
     green_energy: any;
     sun_energy: any;

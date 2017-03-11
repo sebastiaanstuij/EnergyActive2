@@ -3,12 +3,9 @@ import { ComponentFixture, TestBed, async, inject } from '@angular/core/testing'
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { Component } from '@angular/core';
-
 import { By } from '@angular/platform-browser';
-
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { MaterialModule } from '@angular/material';
 
 let fixture: ComponentFixture<AppComponent>;
@@ -16,6 +13,9 @@ let component: AppComponent;
 let compiled: HTMLElement | null;
 let router;
 let location;
+
+// TODO: implement routerstubbing option
+// from https://stackoverflow.com/questions/39623722/angular-2-final-release-router-unit-test/39624731#39624731
 
 // Unit Tests without child components
 @Component({

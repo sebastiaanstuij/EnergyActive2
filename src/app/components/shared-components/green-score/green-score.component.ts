@@ -41,7 +41,7 @@ export class GreenScoreComponent implements OnInit, AfterViewInit, OnDestroy {
     let element = this.visualizationContainer.nativeElement;
     this.container = d3.select(element).append('svg')
       .attr('preserveAspectRatio', 'xMidYMid meet')
-      .attr('viewBox', '0 0 300 300'); // TODO: viewbox still necessary?
+      .attr('viewBox', '0 0 300 300');
 
     this.visualization = this.container.append('g').attr('transform', 'translate(' +
       (this.C.WIDTH + this.C.MARGINS.left) / 2 + ', ' + (this.C.HEIGHT + this.C.MARGINS.top) / 2 + ')');
@@ -80,7 +80,7 @@ export class GreenScoreComponent implements OnInit, AfterViewInit, OnDestroy {
 
     let lg = this.visualization.append('g')
       .attr('class', 'label');
-    // .attr('transform', centerTx);
+      // .attr('transform', centerTx);
 
     lg.selectAll('text')
       .data(this.ticks)
@@ -98,10 +98,10 @@ export class GreenScoreComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private loadDataAndDrawGraph(): void {
-    this.dataSubscription = this.dataService.getLiveGreenScore()
-      .subscribe(greenscore => {
-        this.greenscore = greenscore;
-        let percent = (greenscore * 20) / 100;
+    this.dataSubscription = this.dataService.getEnergyData()
+      .subscribe(data => {
+        this.greenscore = data.greenscore;
+        let percent = (this.greenscore * 20) / 100;
         this.needle.animateOn(this.visualization, percent);
       });
   }

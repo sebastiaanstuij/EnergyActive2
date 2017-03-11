@@ -8,6 +8,11 @@ import * as d3 from 'd3';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 
+ export interface EnergyDataType {
+      date: any;
+      value: any;
+};
+
 @Component({
   selector: 'app-energy-overview',
   providers: [Constants],
@@ -43,14 +48,17 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
     let element = this.visualizationContainer.nativeElement;
     this.container = d3.select(element).append('svg')
       .attr('preserveAspectRatio', 'xMidYMid meet')
-      .attr('viewBox', '0 0 900 550'); // TODO: viewbox still necessary?
+      .attr('viewBox', '0 0 900 550');
 
     this.visualization = this.container.append('g');
+
     this.loadData();
   }
 
   private loadData(): void {
-    this.dataSubscription = this.dataService.getOverviewData()
+    this.visualization.selectAll('*').remove();
+
+    this.dataSubscription = this.dataService.getEnergyData()
       .subscribe(data => {
         let transformedData = this.mapperService.transformdata(data);
         this.setupGraphLayout(transformedData);
@@ -77,7 +85,8 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
 
     // create rectangular background (filled with grey color)
     this.visualization.append('rect')
-      .attr('class', 'background');
+      .attr('class', 'graph-background');
+
     // create x-axis
     this.xAxis = d3.axisBottom(this.xScale);
     // create y-axis
@@ -112,7 +121,49 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
   }
 
   private drawGraph(data): void {
+    let a = this;
+    // create a line generator object
+    let lineGen = d3.line<EnergyDataType>()
+        .x(function(d) {
+            return a.xScale(d.date);
+        })
+        .y(function(d) {
+            return a.yScale(d.value);
+        })
+        .curve(d3.curveBasis); // adds smoothing
 
+    // create an area generator object
+    let areaGen = d3.area<EnergyDataType>()
+        .x(function(d) {
+            return a.xScale(d.date);
+        })
+        .y0(this.C.HEIGHT - this.C.MARGINS.bottom)
+        .y1(function(d) {
+            return a.yScale(d.value);
+        })
+        .curve(d3.curveBasis); // adds smoothing
+
+    // append green energy
+    this.visualization.append('svg:path')
+        .attr('class', 'area')
+        .attr('id', 'area_green_energy')
+        .attr('d', () => { areaGen(data.green_energy); })
+        .attr('fill', 'none'); // TODO: add smoothing?
+
+    // append sun energy
+    this.visualization.append('svg:path')
+        .attr('class', 'area')
+        .attr('id', 'area_sun_energy')
+        .attr('d', () => { areaGen(data.sun_energy); })
+        .attr('fill', 'none')
+        .style('opacity', 0);
+
+    // append consumption-energy data line to graph
+    this.visualization.append('svg:path')
+        .attr('class', 'line')
+        .attr('id', 'line_energy_consumption')
+        .attr('d', () => { lineGen(data.energy_consumption); })
+        .attr('fill', 'none');
   }
 
 }

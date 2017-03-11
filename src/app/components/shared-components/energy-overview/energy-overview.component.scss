@@ -2,14 +2,15 @@
 // @import '~@angular/material/core/theming/theming';
 // @import '../../../../assets/custom-theme';
 
+// TODO: import colors as variables
 
 /*  Graph layout styling  */
-#overviewVisualisation {
-  display: block;
-  margin: auto;
-  width: 80%;
-  margin-bottom: 20px;
-}
+// #overviewVisualisation {
+//   display: block;
+//   margin: auto;
+//   width: 80%;
+//   margin-bottom: 20px;
+// }
 
 
 //#graphContainer {
@@ -18,71 +19,74 @@
 
 
 /*  Graph constants styling  */
-.background {
-  width: 100%;
-  height: 100%;
-  fill:#FAFAFA;
+* /deep/ {
+  
+  .graph-background {
+    width: 100%;
+    height: 100%;
+    fill:#FAFAFA;
+  }
+
+  .graph-title {
+    color: #000;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .axis-label {
+    font-size: 15px;
+  }
+
+  .axis text {
+    font-size: 12px;
+  }
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    height: 10px;
+    stroke-width: 2px;
+    // shape-rendering: crispEdges;
+  }
+
+
+  /* .overlay {
+    fill: none;
+    pointer-events: all;
+  }  */
+
+  .vertical-line {
+    stroke: steelblue;
+    stroke-dasharray: 5;
+    opacity: 0;
+  }
+
+  .focus circle {
+    fill: none;
+    stroke: steelblue;
+  }
+
+
+  /* data specific styling */
+  #line_energy_consumption {
+    stroke: #FF5722;
+    stroke-width: 3px;
+  }
+
+  #area_sun_energy {
+    fill: #FFF500; // TODO: find better color
+    stroke-width: 0
+  }
+
+  #area_wind_energy {
+    fill: #1EB2CE; // TODO: find better color
+    stroke-width: 0
+  }
+
+  #area_green_energy {
+    fill: #00E676;
+    stroke-width: 0
+  }
+
 }
-
-.graph-title {
-  color: #000;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.axis-label {
-  font-size: 15px;
-}
-
-.axis text {
-  font-size: 12px;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  height: 10px;
-  stroke-width: 2px;
-  // shape-rendering: crispEdges;
-}
-
-
-/* .overlay {
-  fill: none;
-  pointer-events: all;
-}  */
-
-.vertical-line {
-  stroke: steelblue;
-  stroke-dasharray: 5;
-  opacity: 0;
-}
-
-.focus circle {
-  fill: none;
-  stroke: steelblue;
-}
-
-
-/* data specific styling */
-#line_energy_consumption {
-  stroke: #FF9232;
-  stroke-width: 3px;
-}
-
-#area_sun_energy {
-  fill: #FFF500;
-  stroke-width: 0
-}
-
-#area_wind_energy {
-  fill: #1EB2CE;
-  stroke-width: 0
-}
-
-#area_green_energy {
-  fill: #3BC443;
-  stroke-width: 0
-}
-

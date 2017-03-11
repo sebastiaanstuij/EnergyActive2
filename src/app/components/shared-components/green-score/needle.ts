@@ -25,7 +25,8 @@ export class Needle {
 
     animateOn = function (el, perc): Function {
         let self = this;
-        return el.transition().delay(500).ease(d3.easeBackOut).duration(3000).selectAll('.needle').tween('progress', function () {
+        return el.transition().delay(500).ease(d3.easeBackOut).duration(3000).selectAll('.needle')
+        .tween('progress', function () {
             // Don't use arrow function because you want the D3 selection that is referred to
             // in this callback to be 'this' not the lexical scope
             return (percentOfPercent) => {
