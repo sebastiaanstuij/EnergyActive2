@@ -10,9 +10,9 @@ $theme: mat-light-theme($primary, $accent, $warn);
 
 
 .m2app-dark {
-  $dark-primary: mat-palette($mat-red, A400);
+  $dark-primary: mat-palette($mat-deep-orange, A400);
   $dark-accent:  mat-palette($mat-light-blue, A400);
-  $dark-warn:    mat-palette($mat-deep-orange);
+  $dark-warn:    mat-palette($mat-red);
 
   $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 

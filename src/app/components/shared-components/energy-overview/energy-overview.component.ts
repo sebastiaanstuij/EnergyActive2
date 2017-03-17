@@ -35,8 +35,8 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
     // declare global color codes for legend
     color_codes = {
         'green_energy': '#00E676',
-        'wind_energy': '#1EB2CE',
-        'sun_energy': '#FFF500',
+        'wind_energy': '#00BCD4',
+        'sun_energy': '#FFEB3B',
         'energy_consumption': '#FF5722'
     };
 
@@ -172,13 +172,13 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
             .attr('fill', 'none'); // TODO: add smoothing?
 
         // append sun energy
-        // this.visualization.append('svg:path')
-        //     .data([data.sun_energy])
-        //     .attr('class', 'area')
-        //     .attr('id', 'area_sun_energy')
-        //     .attr('d', areaGen)
-        //     .attr('fill', 'none')
-        //     .style('opacity', 0);
+        this.visualization.append('svg:path')
+            .data([data.sun_energy])
+            .attr('class', 'area')
+            .attr('id', 'area_sun_energy')
+            .attr('d', areaGen)
+            .attr('fill', 'none')
+            .style('opacity', 0);
 
         // append consumption-energy data line to graph
         this.visualization.append('svg:path')
@@ -187,6 +187,81 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
             .attr('id', 'line_energy_consumption')
             .attr('d', lineGen)
             .attr('fill', 'none');
+
+        // create mouseover area
+        this.visualization.append('svg:rect')
+            .attr('width', this.C.WIDTH - this.C.MARGINS.right - this.C.MARGINS.left)
+            .attr('height', this.C.HEIGHT - this.C.MARGINS.bottom - this.C.MARGINS.top)
+            .attr('fill', 'none')
+            .attr('pointer-events', 'all')
+            .attr('transform', 'translate(' + (this.C.MARGINS.left) + ', ' + (this.C.MARGINS.top) + ')')
+            .on('mouseover', function () {
+                // moveLine();
+                d3.select('#area_green_energy').style('fill', '#00BCD4');
+                d3.select('#area_sun_energy').style('opacity', 1);
+                d3.select('#legend_rect_green_energy').style('opacity', 0);
+                d3.select('#legend_text_green_energy').style('opacity', 0);
+                d3.select('#legend_rect_wind_energy').style('opacity', 1)
+                    .attr('transform', 'translate(0, -20)');
+                d3.select('#legend_text_wind_energy').style('opacity', 1)
+                    .attr('transform', 'translate(0, -20)');
+                d3.select('#legend_rect_sun_energy').style('opacity', 1)
+                    .attr('transform', 'translate(0, -20)');
+                d3.select('#legend_text_sun_energy').style('opacity', 1)
+                    .attr('transform', 'translate(0, -20)');
+            })
+            .on('mousemove', function () {
+                // moveLine();  // TODO: resolve flickering screen due to moveline
+            })
+            .on('mouseout', function () {
+                // verticalLine.style('opacity', 0);
+                d3.select('#area_green_energy').style('fill', '#00E676');
+                d3.select('#area_sun_energy').style('opacity', 0);
+                d3.select('#legend_rect_green_energy').style('opacity', 1);
+                d3.select('#legend_text_green_energy').style('opacity', 1);
+                d3.select('#legend_rect_wind_energy').style('opacity', 0)
+                    .attr('transform', 'translate(0, 20)');
+                d3.select('#legend_text_wind_energy').style('opacity', 0)
+                    .attr('transform', 'translate(0, 20)');
+                d3.select('#legend_rect_sun_energy').style('opacity', 0)
+                    .attr('transform', 'translate(0, 20)');
+                d3.select('#legend_text_sun_energy').style('opacity', 0)
+                    .attr('transform', 'translate(0, 20)');
+            });
+
+        // add a vertical line, which will appear on mouseover/mousemove events
+        // let verticalLine = this.visualization
+        //     .append('line')
+        //     .attr('class', 'vertical-line')
+        //     .attr('transform', 'translate(' + (this.C.MARGINS.left) + ', ' + (0) + ')')
+        //     .attr({
+        //         'x1': 0,
+        //         'y1': this.C.MARGINS.top,
+        //         'x2': 0,
+        //         'y2': this.C.HEIGHT - this.C.MARGINS.bottom
+        //     });
+
+        // let moveLine = function () {
+        // let mousex = d3.mouse(this.visualisation.node())[0];
+        // verticalLine
+        //     .attr('transform', function () {
+        //         return 'translate(' + mousex + ',0)';
+        //     })
+        //     .style('opacity', 1);
+        // };
+
+
+        // append xAxis to visualisation object and transform xAxis to bottom of canvas (plot later because of plot order)
+        this.visualization.append('svg:g')
+            .attr('class', 'axis x-axis')
+            .attr('transform', 'translate(0,' + (this.C.HEIGHT - this.C.MARGINS.bottom) + ')')
+            .call(this.xAxis);
+
+        // append yAxis to visualisation object and transform yAxis to left of canvas (plot later because of plot order)
+        this.visualization.append('svg:g')
+            .attr('class', 'axis y-axis')
+            .attr('transform', 'translate(' + (this.C.MARGINS.left) + ', ' + (0) + ')')
+            .call(this.yAxis);
 
         // add legend
         let legend = this.visualization
@@ -257,17 +332,28 @@ export class EnergyOverviewComponent implements OnInit, AfterViewInit {
                 return k.value;
             });
 
-            // append xAxis to visualisation object and transform xAxis to bottom of canvas (plot later because of plot order)
-            this.visualization.append('svg:g')
-                .attr('class', 'axis x-axis')
-                .attr('transform', 'translate(0,' + (this.C.HEIGHT - this.C.MARGINS.bottom) + ')')
-                .call(this.xAxis);
+        // // tooltip behaviour
+        // let focus = this.visualization.append('g')
+        //   .attr('class', 'focus')
+        //   .style('display', 'none');
 
-            // append yAxis to visualisation object and transform yAxis to left of canvas (plot later because of plot order)
-            this.visualization.append('svg:g')
-                .attr('class', 'axis y-axis')
-                .attr('transform', 'translate(' + (this.C.MARGINS.left) + ', ' + (0) + ')')
-                .call(this.yAxis);
+        // focus.append('circle')
+        //   .attr('r', 6.5);
+
+        // focus.append('text')
+        //   .attr('x', 9)
+        //   .attr('dy', '.35em');
+
+        // function mousemove() {
+        //   let x0 = this.xScale.invert(d3.mouse(this)[0]),
+        //       i = bisectDate(data, x0, 1),
+        //       d0 = data[i - 1],
+        //       d1 = data[i],
+        //       d = x0 - d0.date > d1.value.date - x0 ? d1 : d0;
+        //   focus.attr('transform', 'translate(' + this.xScale(d.date) + ',' + this.yScale(d.value) + ')');
+        //   focus.select('text').text(d.value);
+        // }
+
 
     }
 
