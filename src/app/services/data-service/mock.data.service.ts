@@ -1,4 +1,4 @@
-import { Request, Response, ResponseOptions, RequestMethod } from '@angular/http';
+import { Request, ReadyState, Response, ResponseOptions, RequestMethod, XSRFStrategy, BrowserXhr, ConnectionBackend, Connection} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
 
@@ -10,19 +10,18 @@ import { windData } from '../../../assets/data/json/wind-data';
 
 
 @Injectable()
-export class MockXHRBackend {
+export class MockXHRBackend implements ConnectionBackend {
 
-    constructor() {}
+    constructor(private _browserXHR: BrowserXhr, _baseResponseOptions: ResponseOptions, _xsrfStrategy: XSRFStrategy) {}
 
     generateRandomGreenScore(): Number {
         console.log('random called');
         return Math.floor((Math.random() * (5 - 0) + 1));
     }
 
-    createConnection(request: Request): Object {
+    createConnection(request: Request): Connection {
         let response = new Observable((responseObserver: Observer<Response>) => {
-            let responseOptions;
-
+            let responseOptions;                
               switch (request.url) {
                 case 'EnergyData':
                     switch (request.method) {
@@ -53,8 +52,17 @@ export class MockXHRBackend {
                     responseObserver.complete();
                     return () => { };
                 }
+
         });
-        return { response };
+
+        let connection = {
+            request: request,
+            response: response,
+            readyState: ReadyState.Done,
+
+        }
+
+        return connection;
     }
 
 }
