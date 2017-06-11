@@ -1,10 +1,10 @@
-import { EnergyActive2Page } from './app.po';
+import { GreenpeaPage } from './app.po';
 
-describe('energy-active2 App', function() {
-  let page: EnergyActive2Page;
+describe('Greenpea App', function() {
+  let page: GreenpeaPage;
 
   beforeEach(() => {
-    page = new EnergyActive2Page();
+    page = new GreenpeaPage();
   });
 
   it('should display message saying app works', () => {

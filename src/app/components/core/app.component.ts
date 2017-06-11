@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
   providers: []
 })
 export class AppComponent {
+  isDarkTheme: boolean = false;
 
   constructor() {
 

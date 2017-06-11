@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor';
 
-export class EnergyActive2Page {
+export class GreenpeaPage {
   navigateTo() {
     return browser.get('/');
   }

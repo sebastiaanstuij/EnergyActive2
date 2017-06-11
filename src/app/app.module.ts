@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app.routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, XHRBackend } from '@angular/http';
+import { HttpModule, ConnectionBackend } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -53,7 +53,7 @@ import 'hammerjs';
   providers: [
     DataService,
     MapperService,
-    { provide: XHRBackend, useClass: MockXHRBackend }
+    { provide: ConnectionBackend, useClass: MockXHRBackend }
   ],
   bootstrap: [AppComponent]
 })
