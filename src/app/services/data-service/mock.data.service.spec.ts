@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { MockXHRBackend } from './mock.data.service';
+import { MockBackendService } from './mock.data.service';
 
 describe('DataService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MockXHRBackend]
+      providers: [MockBackendService]
     });
   });
 
-  it('should ...', inject([MockXHRBackend], (service: MockXHRBackend) => {
+  it('should ...', inject([MockBackendService], (service: MockBackendService) => {
     expect(service).toBeTruthy();
   }));
 });

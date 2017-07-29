@@ -33,6 +33,10 @@ import { MockBackendService } from './services/data-service/mock.data.service';
 // exra imports for touch/gesture support
 import 'hammerjs';
 
+export function httpServiceFactory(backend: MockBackend, options: BaseRequestOptions) {
+  return new Http(backend, options);
+}
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -61,7 +65,7 @@ import 'hammerjs';
     {
       provide: Http,
       deps: [MockBackend, BaseRequestOptions],
-      useFactory: (backend, options) => { return new Http(backend, options); }
+      useFactory: httpServiceFactory
     }
   ],
   bootstrap: [AppComponent]
