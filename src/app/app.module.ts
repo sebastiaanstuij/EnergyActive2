@@ -4,9 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app.routing.module';
 import { FormsModule } from '@angular/forms';
-import { HttpModule, ConnectionBackend } from '@angular/http';
+import { MockBackend } from '@angular/http/testing';
+import { Http, BaseRequestOptions  } from '@angular/http';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+//import { HttpModule } from "@angular/http"; //TODO: enable for production
+
 
 // import page components
 import { AppComponent } from './components/core/app.component';
@@ -25,7 +28,7 @@ import { DataService } from './services/data-service/data.service';
 import { MapperService } from './services/mapper-service/mapper.service';
 
 // import mock backend
-import { MockXHRBackend } from './services/data-service/mock.data.service';
+import { MockBackendService } from './services/data-service/mock.data.service';
 
 // exra imports for touch/gesture support
 import 'hammerjs';
@@ -35,8 +38,8 @@ import 'hammerjs';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    // HttpModule, //TODO: enable for production
     FormsModule,
-    HttpModule,
     MaterialModule,
     FlexLayoutModule
   ],
@@ -53,7 +56,13 @@ import 'hammerjs';
   providers: [
     DataService,
     MapperService,
-    { provide: ConnectionBackend, useClass: MockXHRBackend }
+    BaseRequestOptions,
+    MockBackend,
+    {
+      provide: Http,
+      deps: [MockBackend, BaseRequestOptions],
+      useFactory: (backend, options) => { return new Http(backend, options); }
+    }
   ],
   bootstrap: [AppComponent]
 })
